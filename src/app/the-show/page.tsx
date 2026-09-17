@@ -14,18 +14,33 @@ const leadership = [
     name: "Dr. Tan Monivann",
     role: "Chairman",
     bio: "Chairs the board and leads CamFEX's institutional and industry relationships across Cambodia's agro-industrial sector.",
+    imageSrc: "/images/Dr Tan Monivann.jpg",
+    // Source is a wide environmental shot (conference table, laptop,
+    // water bottle, two colleagues in frame), not a close headshot —
+    // at this card's 3:4 ratio, cover-fit leaves no horizontal crop
+    // budget at all (the image's width scales to exactly fill the
+    // container), so the two colleagues at the left/right edges can't
+    // be excluded by object-position however it's set. The vertical
+    // budget is real but narrow (~105px of the source's 960px height),
+    // so this only pushes the crop up, trimming the foreground flowers
+    // as far as that budget allows — it doesn't eliminate them.
+    imagePosition: "50% 10%",
   },
   {
     name: "Thomith Chin",
     role: "Chief Executive",
     bio: "Accountable for the platform overall: brand, campaign, international relationships and commercial delivery. Co-creator of the Pinnacle Entrepreneurs Forum.",
+    imageSrc: "/images/Thomith Chin.jpg",
   },
   {
     name: "Sokkeang Kong",
     role: "Chief Operating Officer",
     bio: "Owns the show floor: exhibitor sales, the buyer programme, venue and operations. Co-creator of the Pinnacle Entrepreneurs Forum.",
+    imageSrc: "/images/Sokkeang Kong.jpg",
   },
 ];
+
+const monivann = leadership[0];
 
 const chairmanStatementParagraphs = [
   "It is milled elsewhere, packed elsewhere, branded elsewhere, and sold at a price somebody else sets. Quality was never the problem. Access was.",
@@ -112,19 +127,24 @@ export default function TheShowPage() {
 
           {/*
             Three portraits, identical crop and treatment — content spec
-            §4.2. These are named real people, not a stock category, so
-            the generic graded placeholder stands in until real
-            portraits are commissioned; no substitute photo of anyone
-            else is used here.
+            §4.2. Real photography now in place for all three; full
+            colour, same Image pipeline as every other photo on the
+            site — no grading, no special-casing beyond Monivann's
+            object-position (see the leadership array above).
           */}
           <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-3">
             {leadership.map((person) => (
               <div key={person.name}>
                 <CamfexImage
-                  pending
+                  src={person.imageSrc}
                   alt={`Portrait of ${person.name}, ${person.role}`}
                   aspectRatio="3/4"
                   className="w-full"
+                  style={
+                    person.imagePosition
+                      ? { objectPosition: person.imagePosition }
+                      : undefined
+                  }
                 />
                 <h3 className="mt-5 font-display text-xl font-semibold text-ink">
                   {person.name}
@@ -149,7 +169,9 @@ export default function TheShowPage() {
         welcome letter — no greeting, no "on behalf of the team," the
         opening line is not softened. First line set at H3 size in ink,
         remaining paragraphs at body size, not italicised throughout.
-        Same portrait treatment as Leadership — same placeholder rule.
+        Same portrait treatment as Leadership — same file and same
+        object-position tuning as the Leadership card, since it's the
+        same source photo at the same 3:4 ratio.
       */}
       <Section tone="off-white">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
@@ -158,10 +180,11 @@ export default function TheShowPage() {
           </h2>
           <div className="mt-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_2fr]">
             <CamfexImage
-              pending
+              src={monivann.imageSrc}
               alt="Portrait of Dr. Tan Monivann, Chairman"
               aspectRatio="3/4"
               className="w-full"
+              style={{ objectPosition: monivann.imagePosition }}
             />
             <div>
               <h3 className="font-display text-2xl font-semibold text-ink sm:text-3xl">
