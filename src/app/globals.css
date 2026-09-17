@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — single source of truth (build plan Section 3).
+ * No component may reference a raw hex value, font name, or pixel
+ * breakpoint directly; only the token names below.
+ */
+@theme {
+  --color-off-white: #f4f2ed;
+  --color-ink: #14140f;
+  --color-terracotta: #c1461d;
+
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-body: var(--font-noto-sans), var(--font-noto-sans-khmer),
+    ui-sans-serif, system-ui, sans-serif;
+
+  /* Tailwind's default scale, restated explicitly per Section 3.3. */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-off-white);
+    color: var(--color-ink);
+  }
+
+  /* Visible focus indicator on every interactive control, on any background. */
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    background-color: var(--color-ink);
+    color: var(--color-off-white);
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
